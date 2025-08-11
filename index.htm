@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Classmate Game</title>
+</head>
+<body>
+  <h1>Pick Your Name and Roll Number</h1>
+
+  <label>Name:</label>
+  <select id="name">
+    <option value="">-- Select Name --</option>
+    <option>John</option>
+    <option>Mary</option>
+    <!-- Add all 36 names here -->
+  </select>
+  <br><br>
+
+  <label>Roll Number:</label>
+  <select id="roll">
+    <option value="">-- Select Roll Number --</option>
+    <option>1</option>
+    <option>2</option>
+    <!-- Add all 36 roll numbers here -->
+  </select>
+  <br><br>
+
+  <button onclick="submitData()">Submit</button>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVy9fXhK08JrpiE9ndz9jDTMkU3YuxAhjCnyzT0Pe6O-gyZtP7abPi1NpjRZ9A5y8R/exec";
+
+    function submitData() {
+      const name = document.getElementById("name").value;
+      const rollNumber = document.getElementById("roll").value;
+
+      if (!name || !rollNumber) {
+        alert("Please select both fields");
+        return;
+      }
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, rollNumber })
+      })
+      .then(() => alert("Submitted!"))
+      .catch(err => console.error(err));
+    }
+  </script>
+</body>
+</html>
+
